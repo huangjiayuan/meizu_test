@@ -10,6 +10,4 @@ untag = Tag.find_or_create_by(:title => 'unTag')
 Tag.find_or_create_by(:title => 'Family')
 Tag.find_or_create_by(:title => 'Animals')
 Tag.find_or_create_by(:title => 'Children')
-10.times{
-  Photo.create(:title => '1',:tag => untag)
-}
+

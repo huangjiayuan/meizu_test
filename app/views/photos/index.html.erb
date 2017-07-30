@@ -120,16 +120,10 @@
 </div>
 <div id = "uploadpage"></div>
 <script>
-  var y = 0;
-  alert(y);
   $(function () {
-    if (y == 0){
       $("#choos_tag").val('');
       get_tags();
       page_photo(1);
-      y +=1;
-    }
-
   })
   function get_tags() {
     $.get('<%= tags_photos_path %>',
