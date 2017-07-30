@@ -1,0 +1,28 @@
+<div class="photo_div">
+  <span>Photo in <strong><%= @tag_title %></strong></span>
+</div>
+<div class="show_photo_all">
+  <% @photos.each do |photo| %>
+      <div class="show_photo">
+        <div class="pic">
+          <img src="<%= QiniuConfig.full_url(photo.title) %>" class="img">
+        </div>
+        <div class="title">
+          <div class="r_title">
+            Title:<%= photo.title %>
+          </div>
+          <div class="r_title">
+            Date:<%= photo.created_at.strftime("%Y/%m/%d") %>
+          </div>
+          <div class="r_title">
+            Tag:<%= photo.tag_title %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+  <div class="release_fenye">
+    <% if @photos.count > 9 %>Page:&nbsp;<% end %>
+    <%= paginate @photos,:theme => 'photo_pagination'%>
+  </div>
+</div>
+
