@@ -1,0 +1,20 @@
+<div class="label">
+  <label >Tags</label>
+</div>
+<% @tags.each do |tag| %>
+    <div class="tag_title" id = "<%= tag.id %>" ondragenter="dragente(event)" ondragover="dragove(event)" ondrop="onDro(event)">
+      <span class="tag_title_span">>&nbsp;</span>
+      <a href="javascript:void(0);" class="tag_title_a" id="<%= tag.id %>" onclick="set_and_find(this)"><%= tag.title %></a>
+      <input type="hidden" id="choos_tag" value="">
+    </div>
+<% end %>
+<div class="upload">
+
+  <%= form_tag(uploadpicture_photos_path,method: :post,enctype: "multipart/form-data",target: 'frameFile') do %>
+      <input type="file" name="fileUp" accept="image/png,image/gif,image/jpeg" value="" alt="" onchange="upload(this)" style = "display:none" id = "fileUp" />
+      <input type="text" name="fileName" style = "display:none" value="" id = "fileName" />
+      <div onclick="setpic(this)">upload photo </div>
+      <%= button_tag "提交", id:"picbutt",style:"display:none" %>
+  <% end %>
+  <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
+</div>

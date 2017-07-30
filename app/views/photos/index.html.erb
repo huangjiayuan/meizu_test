@@ -38,7 +38,7 @@
     border-width:2px;
     border-color:#3A5E88;
     text-align:center;
-    font-size: 25px;
+    font-size: 20px;
   }
   .photo{
     float: left;
@@ -112,36 +112,38 @@
 </style>
 <div style="width: 100%;">
   <div class="tag">
-    <div class="label">
-      <label >Tags</label>
-    </div>
-    <% @tags.each do |tag| %>
-      <div class="tag_title">
-        <span class="tag_title_span">>&nbsp;</span>
-        <a href="javascript:void()" class="tag_title_a" id="<%= tag.id %>" onclick="set_and_find(this)"><%= tag.title %></a>
-        <input type="hidden" id="choos_tag" value="">
-      </div>
-    <% end %>
-    <div class="upload">
 
-      <%= form_tag(uploadpicture_photos_path,method: :post,enctype: "multipart/form-data",target: 'frameFile') do %>
-        <input type="file" name="fileUp" accept="image/png,image/gif,image/jpeg" value="" alt="" onchange="upload(this)" style = "display:none" id = "fileUp" />
-        <input type="text" name="fileName" style = "display:none" value="" id = "fileName" />
-        <div onclick="setpic(this)">upload photo </div>
-        <%= button_tag "提交", id:"picbutt",style:"display:none" %>
-      <% end %>
-      <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
-    </div>
   </div>
   <div class="photo">
 
   </div>
 </div>
+<div id = "uploadpage"></div>
 <script>
+  var y = 0;
+  alert(y);
   $(function () {
-    $("#choos_tag").val('');
-    page_photo(1);
+    if (y == 0){
+      $("#choos_tag").val('');
+      get_tags();
+      page_photo(1);
+      y +=1;
+    }
+
   })
+  function get_tags() {
+    $.get('<%= tags_photos_path %>',
+        {
+        },
+        function (data, status) {
+          if (status == 'success') {
+            //alert("success");
+            $(".tag").html(data);
+          } else {
+            ;
+          }
+        });
+  }
   function set_and_find(obj) {
      $("#choos_tag").val(obj.id);
      page_photo(1);
@@ -156,6 +158,35 @@
           if (status == 'success') {
             //alert("success");
             $(".photo").html(data);
+          } else {
+            ;
+          }
+        });
+  }
+  $("#uploadpage").click(function () {
+    $("#choos_tag").val('');
+    page_photo(1);
+  })
+  function change_tag(obj) {
+    var inid = 'in' + obj.id;
+    var placeholder = $("#"+obj.id).html();
+    var htmlString = '<input type="text" onblur="update_tag(this)" id="'+ inid +'" value="" placeholder="'+ placeholder +'"> '
+    if (placeholder.indexOf('input') < 1) {
+      $("#"+obj.id).html(htmlString);
+      $("#in"+obj.id).focus();
+    }
+  }
+  function update_tag(obj) {
+    $.post('<%= update_photo_tag_photos_path %>',
+        {
+          photo_id:obj.id.trim().replace("inol",""),
+          tag_title:$("#"+obj.id).val().trim()
+        },
+        function (data, status) {
+          if (status == 'success') {
+            //alert("success");
+            get_tags();
+            page_photo(1);
           } else {
             ;
           }
@@ -176,12 +207,44 @@
       }
       $("#fileName").val(filename);
       $("#picbutt").click();
+      page_photo(1);
       return url ;
     }
   }
   function setpic(obj){
     $("#fileUp").click();
   }
+  function dragStar(obj) {
+    obj.dataTransfer.effectAllowed="copy";
+    obj.dataTransfer.setData("id", obj.target.id);
+  }
+  function dragente(obj) {
+    obj.dataTransfer.dropEffect="copy";
+    obj.preventDefault();
+  }
+  function  dragove(obj) {
+    obj.preventDefault();
+  }
+  function onDro(obj) {
+    var tag_id = obj.target.id;
+    var id = obj.dataTransfer.getData("id");
+    event.preventDefault();
+    $.post('<%= drag_photo_tag_photos_path %>',
+        {
+          tag_id:tag_id,
+          photo_id:id
+        },
+        function (data, status) {
+          if (status == 'success') {
+            //alert("success");
+            page_photo(1);
+          } else {
+            ;
+          }
+        });
+  }
 </script>
+
+
 
 

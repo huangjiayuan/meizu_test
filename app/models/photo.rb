@@ -9,11 +9,15 @@ class Photo
   field :title, type: String, default: "" #title
 
   def tag_title
-    tag_title = ""
-    self.tags.each{|tag| tag_title += tag.title}
+    tag_title = "  "
+    self.tags.each{|tag| tag_title << (tag.title + " ")}
     tag_title
   end
-
+  def tag_title_array
+    tag_title_array = []
+    self.tags.each{|tag| tag_title_array << tag.title }
+    tag_title_array
+  end
   def add_tag
     self.tags << Tag.find_by(:title => 'unTag') if self.tags.blank?
   end

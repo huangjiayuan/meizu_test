@@ -11,11 +11,11 @@
 -%>
 <!--
 <span class="page<%= ' current' if page.current? %>">
-  <%= link_to_unless page.current?, page, url, {:remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil} %>
+  <%= link_to_unless page.current?, page, url, {:remote => true, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil} %>
 </span>
 
 -->
 
 <span class="page<%= 'cu' if page.current? %>">
-  <%= link_to_unless page.current?, page, "#top", {:remote => remote, :onclick => "page_photo(#{page})", :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil} %>
+  <%= link_to_unless page.current?, page, "#top", {:remote => true, :onclick => "page_photo(#{page})", :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil} %>
 </span>

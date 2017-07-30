@@ -4,8 +4,8 @@
 <div class="show_photo_all">
   <% @photos.each do |photo| %>
       <div class="show_photo">
-        <div class="pic">
-          <img src="<%= QiniuConfig.full_url(photo.title) %>" class="img">
+        <div class="pic" draggable="true"  ondragstart="dragStar(event)">
+          <img src="<%= QiniuConfig.full_url(photo.title) %>" id="<%= photo.id %>" class="img" >
         </div>
         <div class="title">
           <div class="r_title">
@@ -15,7 +15,7 @@
             Date:<%= photo.created_at.strftime("%Y/%m/%d") %>
           </div>
           <div class="r_title">
-            Tag:<%= photo.tag_title %>
+            Tag:<span id = "ol<%= photo.id %>" onclick="change_tag(this)" style="display: block"><%= photo.tag_title %></span>
           </div>
         </div>
       </div>
@@ -25,4 +25,5 @@
     <%= paginate @photos,:theme => 'photo_pagination'%>
   </div>
 </div>
+
 

@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <span class="prev">
-  <%= link_to_unless current_page.first?, t('views.pagination.previous').html_safe, "javascript:void(0);", :rel => 'prev', :remote => remote, :onclick => "page_photo(#{current_page - 1})"%>
+  <%= link_to_unless current_page.first?, t('views.pagination.previous').html_safe, "javascript:void(0);", :rel => 'prev', :remote => true, :onclick => "page_photo(#{current_page - 1})"%>
 </span>

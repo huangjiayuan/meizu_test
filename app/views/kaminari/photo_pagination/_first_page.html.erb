@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <span class="first">
-  <%= link_to_unless current_page.first?, t('views.pagination.first').html_safe, "#top", :remote => remote, :onclick => "page_photo(#{1})" %>
+  <%= link_to_unless current_page.first?, t('views.pagination.first').html_safe, "#top", :remote => true, :onclick => "page_photo(#{1})" %>
 </span>
