@@ -158,6 +158,7 @@
         });
   }
   $("#uploadpage").click(function () {
+//    alert('1');
     $("#choos_tag").val('');
     page_photo(1);
   })
@@ -200,8 +201,11 @@
         url = window.webkitURL.createObjectURL(file) ;
       }
       $("#fileName").val(filename);
+      $('#frameFile').one('load',function(){
+        page_photo(1);
+        });
       $("#picbutt").click();
-      page_photo(1);
+      //page_photo(1);
       return url ;
     }
   }

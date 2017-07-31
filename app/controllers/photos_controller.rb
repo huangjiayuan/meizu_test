@@ -11,10 +11,7 @@ class PhotosController < ApplicationController
     Photo.create(:title => qiniu[:result]["key"])
     @tags = Tag.all
     @photos = Photo.all.page(1).per(9)
-    respond_to do |format|
-      format.js { render js:"$('#uploadpage').trigger('click')" }
-    end
-
+    render :index
   end
 
   def drag_photo_tag
