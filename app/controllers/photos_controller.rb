@@ -1,7 +1,6 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:drag_photo_tag, :update_photo_tag]
-  def index
-  end
+  def index; end
 
   def tags
     @tags = Tag.all
