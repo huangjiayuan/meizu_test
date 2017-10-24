@@ -40,6 +40,9 @@ gem 'qiniu', '~> 6.8.1'
 
 gem 'awesome_print', '~> 1.8'
 
+gem 'mechanize', '~> 2.7', '>= 2.7.5'
+
+gem "rack-pjax"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
